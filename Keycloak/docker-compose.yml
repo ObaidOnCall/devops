@@ -17,8 +17,10 @@ services:
       - ./keycloakBind/themes:/opt/keycloak/themes
       - ./keycloakBind/conf:/opt/keycloak/conf
     environment:
+      KC_FEATURES: hostname[:v2]
       KC_HOSTNAME: ${HOST_NAME_1}
-      KC_HOSTNAME_STRICT_BACKCHANNEL: false
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
+      KC_HOSTNAME_STRICT: true
       KC_HTTP_ENABLED: true
       KC_HOSTNAME_STRICT_HTTPS: false
       KC_HEALTH_ENABLED: true
