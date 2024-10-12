@@ -16,14 +16,16 @@ services:
     volumes:
       - ./keycloakBind/themes:/opt/keycloak/themes
       - ./keycloakBind/conf:/opt/keycloak/conf
+      - ${KEYCLOCK_CRT}:/opt/keycloak/conf/server.crt
+      - ${KEYCLOCK_KEY}:/opt/keycloak/conf/server.key
     environment:
       KC_HOSTNAME: ${HOST_NAME_1}
       KC_HOSTNAME_PORT: 8080
       KC_HOSTNAME_STRICT_BACKCHANNEL: false
       KC_HTTP_ENABLED: true
       KC_HOSTNAME_STRICT_HTTPS: false
-      KC_HTTPS_CERTIFICATE_FILE: ${KEYCLOCK_CRT}
-      KC_HTTPS_CERTIFICATE_KEY_FILE: ${KEYCLOCK_KEY}
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/conf/server.crt
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/conf/server.key
       KC_HEALTH_ENABLED: true
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
