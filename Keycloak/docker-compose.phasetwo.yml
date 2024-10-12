@@ -18,9 +18,16 @@ services:
       - ./keycloakBind/themes:/opt/keycloak/themes
       - ./keycloakBind/conf:/opt/keycloak/conf
     environment:
+      KC_FEATURES: hostname:v2
+      KC_HOSTNAME: ${HOST_NAME_1}
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
+      KC_HOSTNAME_STRICT: false
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HEALTH_ENABLED: true
+      HTTP_ADDRESS_FORWARDING: true
+      KC_PROXY_HEADERS: xforwarded
       PROXY_ADDRESS_FORWARDING: 'true'
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: password
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KC_DB: postgres
@@ -29,8 +36,6 @@ services:
       KC_DB_SCHEMA: public
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KC_HOSTNAME_STRICT: 'false'
-      KC_HTTP_ENABLED: 'true'
       KC_PROXY: 'edge'
       KC_LOG_LEVEL: INFO
     entrypoint: ["/opt/keycloak/bin/kc.sh", "start", "--spi-email-template-provider=freemarker-plus-mustache", "--spi-email-template-freemarker-plus-mustache-enabled=true", "--spi-theme-cache-themes=false"]
