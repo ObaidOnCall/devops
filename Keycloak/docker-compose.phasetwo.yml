@@ -1,0 +1,56 @@
+version: '3'
+
+volumes:
+  postgres_data:
+    driver: local
+  caddy_data:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:16.2
+    volumes:
+      - postgres_keycloak_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - keycloak_network
+    restart: unless-stopped
+  keycloak:
+    image: quay.io/phasetwo/phasetwo-keycloak:latest
+    volumes:
+      - ./keycloakBind/themes:/opt/keycloak/themes
+      - ./keycloakBind/conf:/opt/keycloak/conf
+    environment:
+      PROXY_ADDRESS_FORWARDING: 'true'
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: password
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_DATABASE: ${POSTGRES_DB}
+      KC_DB_SCHEMA: public
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_HOSTNAME_STRICT: 'false'
+      KC_HTTP_ENABLED: 'true'
+      KC_PROXY: 'edge'
+      KC_LOG_LEVEL: INFO
+    entrypoint: ["/opt/keycloak/bin/kc.sh", "start", "--spi-email-template-provider=freemarker-plus-mustache", "--spi-email-template-freemarker-plus-mustache-enabled=true", "--spi-theme-cache-themes=false"]
+    ports:
+      - '127.0.0.1:8081:8080'
+      - 8443:8443
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    networks:
+      - keycloak_network
+volumes:
+  postgres_keycloak_data:
+    driver: local
+
+networks:
+  keycloak_network: {}
