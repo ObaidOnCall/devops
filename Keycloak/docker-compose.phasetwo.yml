@@ -20,6 +20,7 @@ services:
     environment:
       KC_FEATURES: hostname:v2
       KC_HOSTNAME: ${HOST_NAME_1}
+      KC_HOSTNAME_ADMIN: ${HOST_NAME_1}
       KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
       KC_HOSTNAME_STRICT: false
       KC_HTTP_ENABLED: true
