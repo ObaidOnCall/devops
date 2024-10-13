@@ -20,9 +20,8 @@ services:
     environment:
       KC_FEATURES: hostname:v2
       KC_HOSTNAME: ${HOST_NAME_1}
-      KC_HOSTNAME_ADMIN: ${HOST_NAME_1}
       KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
-      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT: true
       KC_HTTP_ENABLED: true
       KC_HOSTNAME_STRICT_HTTPS: false
       KC_HEALTH_ENABLED: true
@@ -42,7 +41,7 @@ services:
     entrypoint: ["/opt/keycloak/bin/kc.sh", "start", "--spi-email-template-provider=freemarker-plus-mustache", "--spi-email-template-freemarker-plus-mustache-enabled=true", "--spi-theme-cache-themes=false"]
     ports:
       - '127.0.0.1:8081:8080'
-      - '127.0.0.1:8443:9000'
+      - '127.0.0.1:8443:8443'
     restart: unless-stopped
     depends_on:
       - postgres
