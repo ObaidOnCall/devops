@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  ubuntu_vm1:
+    image: ubuntu:jammy
+    container_name: ubuntu_vm1
+    command: sleep infinity  # Keeps the container running
+    networks:
+      - ubuntu_network
+    
+    ports:
+      - '5435:5432'
+
+    stdin_open: true  # Keep stdin open for interaction
+    tty: true  # Enable a terminal for interaction
+    restart: always
+
+  ubuntu_vm2:
+    image: ubuntu:jammy
+    container_name: ubuntu_vm2
+    command: sleep infinity  # Keeps the container running
+    networks:
+      - ubuntu_network
+
+    stdin_open: true  # Keep stdin open for interaction
+    tty: true  # Enable a terminal for interaction
+    restart: always
+
+  ubuntu_vm3:
+    image: ubuntu:jammy
+    container_name: ubuntu_vm3
+    command: sleep infinity  # Keeps the container running
+    networks:
+      - ubuntu_network
+
+    stdin_open: true  # Keep stdin open for interaction
+    tty: true  # Enable a terminal for interaction
+    restart: always
+
+networks:
+  ubuntu_network:
+    driver: bridge
