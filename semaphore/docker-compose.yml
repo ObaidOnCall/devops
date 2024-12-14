@@ -15,7 +15,7 @@ services:
   #   image: mysql:8.0
   #   hostname: mysql
   #   volumes:
-  #     - semaphore-mysql:/var/lib/mysql
+  #     - semaphore-postgres:/var/lib/postgres
   #   environment:
   #     MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
   #     MYSQL_DATABASE: ${DATABASE_NAME}
@@ -29,9 +29,9 @@ services:
     environment:
       SEMAPHORE_DB_USER: ${DATABASE_USER}
       SEMAPHORE_DB_PASS: ${DATABASE_PASSWORD}
-      SEMAPHORE_DB_HOST: mysql
+      SEMAPHORE_DB_HOST: postgres
       SEMAPHORE_DB_PORT: 3306
-      SEMAPHORE_DB_DIALECT: mysql
+      SEMAPHORE_DB_DIALECT: postgres
       SEMAPHORE_DB: ${DATABASE_NAME}
       SEMAPHORE_PLAYBOOK_PATH: /tmp/semaphore/
       SEMAPHORE_ADMIN_PASSWORD: ${SEMAPHORE_ADMIN_PASSWORD}
@@ -40,6 +40,6 @@ services:
       SEMAPHORE_ADMIN: ${SEMAPHORE_ADMIN}
       TZ: UTC
     depends_on:
-      - mysql
+      - postgres
 volumes:
   semaphore-postgres:
