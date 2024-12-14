@@ -42,4 +42,4 @@ services:
     depends_on:
       - mysql
 volumes:
-  semaphore-mysql:
+  semaphore-postgres:
