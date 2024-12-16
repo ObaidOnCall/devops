@@ -3,5 +3,5 @@
   tasks :
     - name: Template a file to /root/hello.txt
       ansible.builtin.template:
-        src: /mytemplates/foo.j2
+        src: ./example.j2
         dest: /root/hello.txt
