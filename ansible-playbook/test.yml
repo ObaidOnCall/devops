@@ -1,0 +1,6 @@
+---
+- name: Test echo on selected group
+  hosts: webservers
+  tasks:
+    - name: Run echo command
+      command: echo "Hello from {{ inventory_hostname }}"
