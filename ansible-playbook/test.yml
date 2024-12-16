@@ -2,4 +2,4 @@
   hosts: webservers
   tasks:
     - name: create dir
-      command: mkdir /root/hello
+      ansible.builtin.command: mkdir /root/hello
