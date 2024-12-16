@@ -1,2 +1,90 @@
-host name is : {{ ansible_hostname }}
-list all ipsv4 : {{ ansible_all_ipv6_addresses }}
+# ------------------------------------------------------------
+# {{ ansible_hostname }}
+# ------------------------------------------------------------
+
+
+
+map $scheme $hsts_header {
+    https   "max-age=63072000; preload";
+}
+
+
+upstream authserver {
+  server 127.0.0.1:8081 ;
+  keepalive 8 ;
+}
+
+server {
+    # set $forward_scheme http;
+    # set $server         "127.0.0.1";
+    # set $port           8081;
+
+    listen 80;
+    listen [::]:80;
+
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+
+    server_name {{ ansible_hostname }};
+
+
+    # Let's Encrypt SSL
+    #   include conf.d/include/letsencrypt-acme-challenge.conf;
+    #   include conf.d/include/ssl-ciphers.conf;
+    ssl_certificate /etc/letsencrypt/live/{{ ansible_hostname }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ ansible_hostname }}/privkey.pem;
+
+
+
+
+
+
+
+
+    # HSTS (ngx_http_headers_module is required) (63072000 seconds = 2 years)
+    add_header Strict-Transport-Security $hsts_header always;
+
+
+
+
+
+    # Force SSL
+    include conf.d/include/force-ssl.conf;
+
+
+
+
+
+    access_log /var/log/nginx/proxy-host-1_access.log;
+    error_log /var/log/nginx/proxy-host-1_error.log warn;
+
+
+
+
+
+
+
+  location / {
+
+    proxy_pass http://authserver ;
+
+
+    # HSTS (ngx_http_headers_module is required) (63072000 seconds = 2 years)
+    add_header Strict-Transport-Security $hsts_header always;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $forward_scheme;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Port $server_port;
+
+
+    # Proxy!
+    # include conf.d/include/proxy.conf;
+  }
+
+
+  # Custom
+  include /data/nginx/custom/server_proxy[.]conf;
+}
