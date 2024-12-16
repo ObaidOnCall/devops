@@ -1,0 +1,7 @@
+- name: make sure that fleetNotification service is working
+  hosts : webservers
+  tasks :
+    - name:
+      ansible.builtin.service:
+        name: "{{ SERVICE_NAME }}"
+        state: started

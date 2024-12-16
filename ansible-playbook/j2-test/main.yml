@@ -1,0 +1,7 @@
+- name: generate hello.txt file from a template
+  hosts : webservers
+  tasks :
+    - name: Template a file to /root/hello.txt
+      ansible.builtin.template:
+        src: /mytemplates/foo.j2
+        dest: /root/hello.txt

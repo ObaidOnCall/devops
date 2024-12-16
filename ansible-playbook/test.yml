@@ -1,6 +1,5 @@
----
-- name: Test echo on selected group
+- name: mkdir
   hosts: webservers
   tasks:
-    - name: Run echo command
-      command: echo "Hello from {{ inventory_hostname }}"
+    - name: create dir
+      ansible.builtin.command: mkdir /root/hello
