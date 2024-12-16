@@ -4,4 +4,4 @@
     - name: Template a file to /root/hello.txt
       ansible.builtin.template:
         src: ./example.j2
-        dest: /root/hello.conf
+        dest: /etc/nginx/proxies/{{ ansible_domain }}.conf
