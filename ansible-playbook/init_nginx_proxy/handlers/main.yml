@@ -1,0 +1,6 @@
+---
+# handlers file for init_nginx_proxy
+- name: Reload Nginx
+  ansible.builtin.service:
+    name: nginx
+    state: reloaded

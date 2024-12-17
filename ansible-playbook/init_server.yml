@@ -1,4 +1,5 @@
-- name: Install Redis
+- name: Install Redis and Create Proxy
   hosts: webservers
   roles:
-    - redis
+    - init_nginx_proxy
+    # - redis

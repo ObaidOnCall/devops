@@ -1,0 +1,6 @@
+---
+# vars file for init_nginx_proxy
+service_address: "{{ SERVICE_ADDRESS }}"
+service_port: "{{ SERVICE_PORT }}"
+service_host_name: "{{ SERVICE_HOST_NAME }}"
+proxy_pwd : "/etc/nginx/proxies"
