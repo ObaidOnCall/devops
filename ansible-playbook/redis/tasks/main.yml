@@ -1,5 +1,5 @@
 ---
 # tasks file for redis
-- include: apt_update.yml
-- include: install.yml
-- include: configure.yml
+- import_tasks: apt_update.yml
+- import_tasks: install.yml
+- import_tasks: configure.yml
