@@ -1,9 +1,6 @@
-# tasks/main.yml
-- name: Import apt update tasks
-  import_tasks: apt_update.yml
-
-- name: Import configure tasks
-  import_tasks: configure.yml
-
-- name: Import install tasks
-  import_tasks: install.yml
+- name: Install Redis
+  hosts: webservers
+  tasks:
+    - include: apt_update.yml
+    - include: install.yml
+    - include: configure.yml
