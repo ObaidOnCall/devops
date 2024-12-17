@@ -6,4 +6,4 @@
     group: root
     mode : 0644
     # I will notiy handler to start redis
-    notify: Restart Redis
+  notify: Restart Redis
