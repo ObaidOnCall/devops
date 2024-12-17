@@ -1,11 +1,8 @@
-- name: Install Redis
-  hosts: webservers
-  tasks:
-    -  name: Apt Update
-        include_tasks: apt_update.yml
+-  name: Apt Update
+    include_tasks: apt_update.yml
 
-    -  name: Install Redis
-        include_tasks: install.yml
+-  name: Install Redis
+    include_tasks: install.yml
 
-    -  name: Configure Redis
-        include_tasks: configure.yml
+-  name: Configure Redis
+    include_tasks: configure.yml
