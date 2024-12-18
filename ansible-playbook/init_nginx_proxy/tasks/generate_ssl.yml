@@ -23,3 +23,8 @@
 - name: Generate private key for ACME account
   community.crypto.openssl_privatekey:
     path: "{{letsencrypt_account_key}}"
+
+
+- name: Generate let's encrypt private key with the default values
+  community.crypto.openssl_privatekey:
+    path: "{{letsencrypt_keys_dir}}/{{ acme_domain}}.key"
