@@ -8,6 +8,8 @@
     account_key_content: "{{ letsencrypt_account_key }}"
     csr:  "/etc/pki/cert/csr/{{ acme_domain }}.csr"
     dest: "/etc/httpd/ssl/{{ acme_domain }}.crt"
+    acme_directory: "{{ acme_directory }}"
+    acme_version: "{{ acme_version }}"
   register: sample_com_challenge
 
 
@@ -20,7 +22,7 @@
     fullchain: "{{ letsencrypt_certs_dir }}/{{ acme_domain }}-fullchain.pem"
     chain: "{{ letsencrypt_certs_dir }}/{{ acme_domain }}-chain.pem"
     challenge: dns-01
-    acme_directory: https://acme-v02.api.letsencrypt.org/directory
+    acme_directory: "{{ acme_directory }}"
     remaining_days: 60
     data: "{{ sample_com_challenge }}"
   when: sample_com_challenge is changed
