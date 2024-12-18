@@ -1,8 +1,9 @@
 ---
-# handlers file for init_nginx_proxy
+# handlers file for init_nginx_proxy generate_ssl_certbot
 
 - name: Generate SSL
-  include_tasks: generate_ssl.yml
+  # include_tasks: generate_ssl.yml
+  include_tasks: generate_ssl_certbot.yml
 
 
 - name: Reload Nginx
