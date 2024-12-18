@@ -1,4 +1,4 @@
 - name: Generate Config Proxy With SSL Cert
-  include_tasks: 
-    - install_certbot.yml
-    - config_proxy.yml
+  block:
+    - ansible.builtin.include_tasks: install_certbot.yml
+    - ansible.builtin.include_tasks: config_proxy.yml
