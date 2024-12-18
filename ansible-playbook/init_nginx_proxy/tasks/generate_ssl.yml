@@ -47,3 +47,18 @@
     contact:
       - "mailto:{{ acme_account_email }}"
   register: acme_account
+
+
+- name: Check if previous certificate exists
+  ansible.builtin.stat:
+    path: "{{letsencrypt_certs_dir}}/{{ acme_domain }}.crt"
+  register: prev_cert
+
+
+- name: Revoke previous certificate
+  community.crypto.acme_certificate_revoke:
+    account_key_src: "{{letsencrypt_account_key}}"
+    certificate: "{{letsencrypt_certs_dir}}/{{ acme_domain }}.crt"
+    acme_directory: "{{ acme_directory }}"
+    acme_version: "{{ acme_version }}"
+  when: prev_cert.stat.exists and acme_revoke
