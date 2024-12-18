@@ -11,8 +11,8 @@ acme_version: 2
 acme_method: "http-01"
 acme_domain: "{{ service_host_name }}"  # Replace with your domain
 letsencrypt_dir: "/etc/letsencrypt"
-letsencrypt_account_key: "/etc/letsencrypt/account.key"
-letsencrypt_keys_dir: "/etc/letsencrypt/keys"
-letsencrypt_csrs_dir: "/etc/letsencrypt/csrs"
-letsencrypt_certs_dir: "/etc/letsencrypt/live/{{ acme_domain }}"
+letsencrypt_account_key: "{{ letsencrypt_dir }}/account/account.key"
+letsencrypt_keys_dir: "{{ letsencrypt_dir }}/keys"
+letsencrypt_csrs_dir: "{{ letsencrypt_dir }}/csrs"
+letsencrypt_certs_dir: "{{ letsencrypt_dir }}/live/{{ acme_domain }}"
 acme_account_email: "{{ EMAIL }}"  # Replace with your email
