@@ -82,7 +82,7 @@
   community.crypto.acme_certificate:
     account_key_src: "{{letsencrypt_account_key}}"
     account_email: "{{ acme_account_email }}"
-    src: /etc/pki/cert/csr/sample.com.csr
+    src: "{{letsencrypt_csrs_dir}}/{{ acme_domain }}.csr"
     cert: /etc/httpd/ssl/sample.com.crt
     acme_version: "{{ acme_version }}"
     challenge: "{{ acme_method }}"
