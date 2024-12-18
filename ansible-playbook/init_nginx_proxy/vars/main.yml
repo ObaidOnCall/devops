@@ -1,0 +1,18 @@
+---
+# vars file for init_nginx_proxy
+service_address: "{{ SERVICE_ADDRESS }}"
+service_port: "{{ SERVICE_PORT }}"
+service_host_name: "{{ SERVICE_HOST_NAME }}"
+proxy_pwd : "/etc/nginx/proxies"
+
+project_path: "/var/www/{{ service_host_name }}"
+acme_account_email: "{{ EMAIL }}"
+acme_directory: "https://acme-v02.api.letsencrypt.org/directory"
+acme_version: 2
+acme_method: "http-01"
+acme_domain: "{{ service_host_name }}"  # Replace with your domain
+letsencrypt_dir: "/etc/letsencrypt"
+letsencrypt_account_key: "{{ letsencrypt_dir }}/account/account.key"
+letsencrypt_keys_dir: "{{ letsencrypt_dir }}/keys"
+letsencrypt_csrs_dir: "{{ letsencrypt_dir }}/csrs"
+letsencrypt_certs_dir: "{{ letsencrypt_dir }}/certs"

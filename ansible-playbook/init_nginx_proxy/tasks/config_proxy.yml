@@ -1,0 +1,11 @@
+- name : Create Nginx Porxy
+  template: 
+    src: "proxy.j2"
+    dest: "{{ proxy_pwd }}/{{ service_host_name }}.conf"
+    owner: root
+    group: "{{ 'sudo' if ansible_facts['os_family'] == 'Debian' else 'wheel' }}"
+    mode : 0644
+    # I will notiy handler to start redis
+  notify:
+    - Generate SSL
+    # - Reload Nginx

@@ -1,0 +1,2 @@
+- name: Generate Config Proxy
+  include_tasks: config_proxy.yml

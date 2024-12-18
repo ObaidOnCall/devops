@@ -1,0 +1,49 @@
+- name: Create a letsencrypt directory if it does not exist
+  ansible.builtin.file:
+    path: "{{item}}"
+    state: directory
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+  loop:
+    - /var/www/html
+    - "{{letsencrypt_dir}}"
+    - "{{letsencrypt_dir}}/account"
+    - "{{letsencrypt_dir}}/certs"
+    - "{{letsencrypt_dir}}/csrs"
+    - "{{letsencrypt_dir}}/keys"
+    - /var/www/html/.well-known/acme-challenge
+
+
+- name: Set default ACME method
+  ansible.builtin.set_fact:
+    acme_method: "http-01"
+  when: acme_method is not defined
+
+- name: Generate private key for ACME account
+  community.crypto.openssl_privatekey:
+    path: "{{letsencrypt_account_key}}"
+
+
+- name: Generate let's encrypt private key with the default values
+  community.crypto.openssl_privatekey:
+    path: "{{letsencrypt_keys_dir}}/{{ acme_domain}}.key"
+
+
+- name: Generate certificate signing request (CSR)
+  community.crypto.openssl_csr:
+    path: "{{letsencrypt_csrs_dir}}/{{ acme_domain }}.csr"
+    privatekey_path: "{{letsencrypt_keys_dir}}/{{ acme_domain }}.key"
+    common_name: "{{acme_domain}}"
+
+
+- name: Register ACME Account without external binding
+  community.crypto.acme_account:
+    account_key_src: "{{letsencrypt_account_key}}"
+    acme_directory: "{{ acme_directory }}"
+    acme_version: "{{ acme_version }}"
+    state: present
+    terms_agreed: true
+    contact:
+      - "mailto:{{ acme_account_email }}"
+  register: acme_account
