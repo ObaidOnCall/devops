@@ -80,8 +80,8 @@
 
 - name: Create a challenge for sample.com using a account key file.
   community.crypto.acme_certificate:
-    account_key_src: /etc/pki/cert/private/account.key
-    account_email: myself@sample.com
+    account_key_src: "{{letsencrypt_account_key}}"
+    account_email: "{{ acme_account_email }}"
     src: /etc/pki/cert/csr/sample.com.csr
     cert: /etc/httpd/ssl/sample.com.crt
     acme_version: "{{ acme_version }}"
