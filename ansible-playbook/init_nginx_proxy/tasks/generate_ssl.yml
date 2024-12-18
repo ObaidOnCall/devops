@@ -84,8 +84,9 @@
     account_email: myself@sample.com
     src: /etc/pki/cert/csr/sample.com.csr
     cert: /etc/httpd/ssl/sample.com.crt
-    challenge: dns-01
-    acme_directory: https://acme-v01.api.letsencrypt.org/directory
+    acme_version: "{{ acme_version }}"
+    challenge: "{{ acme_method }}"
+    acme_directory: "{{ acme_directory }}"
     # Renew if the certificate is at least 30 days old
     remaining_days: 60
   register: sample_com_challenge
