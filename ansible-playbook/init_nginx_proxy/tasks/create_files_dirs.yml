@@ -1,0 +1,23 @@
+- name: Ensure Nginx Needed Files Are Present
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: touch
+    mode: '0644'
+    owner: root
+    group: root
+  with_items:
+    - /etc/nginx/conf.d/include/force-ssl.conf
+    - /etc/nginx/conf.d/include/force-ssl_test_.conf
+
+
+
+- name : Generate force-ssl file using jinja2
+  ansible.builtin.template:
+    - src : force-ssl.j2
+    - dest: /etc/nginx/conf.d/include/force-ssl.conf
+
+
+- name : Generate force-ssl_test_ file using jinja2
+  ansible.builtin.template:
+    - src : force-ssl.j2
+    - dest: /etc/nginx/conf.d/include/force-ssl_test_.conf
