@@ -26,8 +26,8 @@ server {
     server_name {{ service_host_name }};
 
 
-    ssl_certificate /etc/letsencrypt/live/{{ service_host_name }}/{{ service_host_name }}-fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{ service_host_name }}/{{ service_host_name }}-intermediate.pem;
+    ssl_certificate {{ letsencrypt_certs_dir }}/{{ acme_domain }}-fullchain.pem ;
+    ssl_certificate_key {{ letsencrypt_certs_dir }}/{{ acme_domain }}-chain.pem;
 
 
 
