@@ -1,28 +1,15 @@
-- name: Generate private key for ACME account
-  community.crypto.openssl_privatekey:
-    path: "{{letsencrypt_account_key}}"
-
-
-- name: Create a challenge for "{{ acme_domain }}" using a account key from a variable.
-  community.crypto.acme_certificate:
-    account_key_content: "{{ letsencrypt_account_key }}"
-    csr:  "/etc/pki/cert/csr/{{ acme_domain }}.csr"
-    dest: "/etc/httpd/ssl/{{ acme_domain }}.crt"
-    acme_directory: "{{ acme_directory }}"
-    acme_version: "{{ acme_version }}"
-  register: sample_com_challenge
-
-
-- name: Let the challenge be validated and retrieve the cert and intermediate certificate
-  community.crypto.acme_certificate:
-    account_key_src: /etc/pki/cert/private/account.key
-    account_email: myself@sample.com
-    src: /etc/pki/cert/csr/sample.com.csr
-    cert: /etc/httpd/ssl/sample.com.crt
-    fullchain: "{{ letsencrypt_certs_dir }}/{{ acme_domain }}-fullchain.pem"
-    chain: "{{ letsencrypt_certs_dir }}/{{ acme_domain }}-chain.pem"
-    challenge: dns-01
-    acme_directory: "{{ acme_directory }}"
-    remaining_days: 60
-    data: "{{ sample_com_challenge }}"
-  when: sample_com_challenge is changed
+- name: Create a letsencrypt directory if it does not exist
+  ansible.builtin.file:
+    path: "{{item}}"
+    state: directory
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+  loop:
+    - /var/www/html
+    - "{{letsencrypt_dir}}"
+    - "{{letsencrypt_dir}}/account"
+    - "{{letsencrypt_dir}}/certs"
+    - "{{letsencrypt_dir}}/csrs"
+    - "{{letsencrypt_dir}}/keys"
+    - /var/www/html/.well-known/acme-challenge
