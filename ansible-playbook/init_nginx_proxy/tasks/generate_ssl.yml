@@ -13,3 +13,13 @@
     - "{{letsencrypt_dir}}/csrs"
     - "{{letsencrypt_dir}}/keys"
     - /var/www/html/.well-known/acme-challenge
+
+
+- name: Set default ACME method
+  ansible.builtin.set_fact:
+    acme_method: "http-01"
+  when: acme_method is not defined
+
+- name: Generate private key for ACME account
+  community.crypto.openssl_privatekey:
+    path: "{{letsencrypt_account_key}}"
