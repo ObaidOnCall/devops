@@ -28,3 +28,10 @@
 - name: Generate let's encrypt private key with the default values
   community.crypto.openssl_privatekey:
     path: "{{letsencrypt_keys_dir}}/{{ acme_domain}}.key"
+
+
+- name: Generate certificate signing request (CSR)
+  community.crypto.openssl_csr:
+    path: "{{letsencrypt_csrs_dir}}/{{ acme_domain }}.csr"
+    privatekey_path: "{{letsencrypt_keys_dir}}/{{ acme_domain }}.key"
+    common_name: "{{acme_domain}}"
