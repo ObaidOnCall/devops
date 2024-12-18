@@ -1,3 +1,14 @@
+- name: Ensure Nginx directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+    owner: root
+  with_items:
+    - /etc/nginx/proxies
+    - /etc/nginx/proxies_test
+
+
 - name: Ensure Nginx Needed Files Are Present
   ansible.builtin.file:
     path: "{{ item }}"
@@ -8,7 +19,6 @@
   with_items:
     - /etc/nginx/conf.d/include/force-ssl.conf
     - /etc/nginx/conf.d/include/force-ssl_test_.conf
-
 
 
 - name : Generate force-ssl file using jinja2
