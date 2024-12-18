@@ -9,7 +9,7 @@ map $scheme $hsts_header {
 }
 
 
-upstream targetserver {
+upstream SERVICE_{{ service_host_name }} {
   server {{ service_address }}:{{ service_port }} ;
   keepalive 100 ;
 }
@@ -51,7 +51,7 @@ server {
 
   location / {
 
-    proxy_pass http://targetserver ;
+    proxy_pass http://SERVICE_{{ service_host_name }} ;
 
 
     # HSTS (ngx_http_headers_module is required) (63072000 seconds = 2 years)
