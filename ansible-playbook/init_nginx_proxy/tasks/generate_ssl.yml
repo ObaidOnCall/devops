@@ -35,3 +35,15 @@
     path: "{{letsencrypt_csrs_dir}}/{{ acme_domain }}.csr"
     privatekey_path: "{{letsencrypt_keys_dir}}/{{ acme_domain }}.key"
     common_name: "{{acme_domain}}"
+
+
+- name: Register ACME Account without external binding
+  community.crypto.acme_account:
+    account_key_src: "{{letsencrypt_account_key}}"
+    acme_directory: "{{ acme_directory }}"
+    acme_version: "{{ acme_version }}"
+    state: present
+    terms_agreed: true
+    contact:
+      - "mailto:{{ acme_account_email }}"
+  register: acme_account
