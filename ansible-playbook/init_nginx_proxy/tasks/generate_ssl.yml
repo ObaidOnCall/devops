@@ -84,7 +84,7 @@
 
 
 - name: Show challenge
-  ansible.builtin.debug: var=acme_challeng
+  ansible.builtin.debug: var=acme_challenge
 
 
 - name: Copy http-01 challenge data
