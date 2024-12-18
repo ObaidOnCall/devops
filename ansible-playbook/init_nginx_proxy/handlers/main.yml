@@ -1,5 +1,10 @@
 ---
 # handlers file for init_nginx_proxy
+
+- name: Generate SSL
+  include_tasks: generate_ssl.yml
+
+
 - name: Reload Nginx
   ansible.builtin.service:
     name: nginx
