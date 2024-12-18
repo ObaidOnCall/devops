@@ -77,3 +77,6 @@
     modify_account: false
     challenge: "{{ acme_method }}"
   register: acme_challenge
+
+- debug:
+    var: acme_challenge
