@@ -1,2 +1,4 @@
-- name: Generate Config Proxy
-  include_tasks: config_proxy.yml
+- name: Generate Config Proxy With SSL Cert
+  include_tasks: 
+    - install_certbot.yml
+    - config_proxy.yml
