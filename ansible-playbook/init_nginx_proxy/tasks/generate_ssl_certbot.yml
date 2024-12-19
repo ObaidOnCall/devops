@@ -1,0 +1,13 @@
+- name: Generate SSL certificate
+  ansible.builtin.command:
+    cmd: >
+      certbot --nginx
+      --non-interactive
+      --agree-tos
+      --email "{{ acme_account_email }}"
+      --domains "{{ service_host_name }}"
+  register: certbot_output
+
+- name: Debug Certbot output
+  ansible.builtin.debug:
+    var: certbot_output.stdout

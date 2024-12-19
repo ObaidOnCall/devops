@@ -1,0 +1,8 @@
+# Redirect all HTTP requests to HTTPS
+if ($scheme = http) {
+    return 301 https://$host$request_uri;
+}
+
+# Ensure that the backend proxy (upstream) is using SSL
+proxy_set_header X-Forwarded-Proto https;
+proxy_set_header X-Forwarded-Ssl on;

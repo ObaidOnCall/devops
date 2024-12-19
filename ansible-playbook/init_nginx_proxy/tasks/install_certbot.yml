@@ -1,0 +1,30 @@
+- name: Install Certbot packages on Debian/Ubuntu
+  ansible.builtin.apt:
+    name:
+      - certbot
+      - python3-certbot-apache
+      - python3-certbot-nginx
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+
+- name: Install Certbot packages on Red Hat/CentOS
+  ansible.builtin.yum:
+    name:
+      - certbot
+      - python3-certbot-apache
+      - python3-certbot-nginx
+    state: present
+  when: ansible_os_family == "RedHat"
+
+
+- name: Verify Certbot installation
+  ansible.builtin.command:
+    cmd: certbot --version
+  register: certbot_version
+  changed_when: false
+
+- name: Debug Certbot version
+  ansible.builtin.debug:
+    var: certbot_version.stdout

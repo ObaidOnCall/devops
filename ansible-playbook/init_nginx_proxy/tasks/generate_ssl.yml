@@ -47,3 +47,49 @@
     contact:
       - "mailto:{{ acme_account_email }}"
   register: acme_account
+
+
+- name: Check if previous certificate exists
+  ansible.builtin.stat:
+    path: "{{letsencrypt_certs_dir}}/{{ acme_domain }}.crt"
+  register: prev_cert
+
+
+- name: Revoke previous certificate
+  community.crypto.acme_certificate_revoke:
+    account_key_src: "{{letsencrypt_account_key}}"
+    certificate: "{{letsencrypt_certs_dir}}/{{ acme_domain }}.crt"
+    acme_directory: "{{ acme_directory }}"
+    acme_version: "{{ acme_version }}"
+  when: prev_cert.stat.exists and acme_revoke
+
+
+# - name: Create a challenge
+#   community.crypto.acme_certificate:
+#     account_key_src: "{{letsencrypt_account_key}}"
+#     account_email: "{{ acme_account_email }}"
+#     src: "{{letsencrypt_csrs_dir}}/{{ acme_domain }}.csr"
+#     cert: "{{letsencrypt_certs_dir}}/{{ acme_domain}}.pem"
+#     acme_directory: "{{ acme_directory }}"
+#     acme_version: "{{ acme_version }}"
+#     terms_agreed: true
+#     force: true
+#     modify_account: false
+#     challenge: "{{ acme_method }}"
+#   register: acme_challenge
+
+- name: Create a challenge for sample.com using a account key file.
+  community.crypto.acme_certificate:
+    account_key_src: "{{letsencrypt_account_key}}"
+    account_email: "{{ acme_account_email }}"
+    src: "{{letsencrypt_csrs_dir}}/{{ acme_domain }}.csr"
+    cert: /etc/httpd/ssl/sample.com.crt
+    acme_version: "{{ acme_version }}"
+    challenge: "{{ acme_method }}"
+    acme_directory: "{{ acme_directory }}"
+    # Renew if the certificate is at least 30 days old
+    remaining_days: 60
+  register: sample_com_challenge
+
+- debug:
+    var: sample_com_challenge

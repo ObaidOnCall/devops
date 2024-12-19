@@ -8,4 +8,4 @@
     # I will notiy handler to start redis
   notify:
     - Generate SSL
-    # - Reload Nginx
+    - Reload Nginx
