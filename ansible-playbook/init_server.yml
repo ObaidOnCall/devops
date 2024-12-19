@@ -1,4 +1,4 @@
-- name: Install Redis and Create Proxy
+- name: Create Nginx Proxy With SSL Cert Using Given Hostname And Ip With Port Of Backend Service
   hosts: webservers
   roles:
     - init_nginx_proxy
