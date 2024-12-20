@@ -1,6 +1,5 @@
 [Unit]
-Description=Valhalla Routing Service
-Documentation=https://valhalla.github.io/valhalla/
+Description={{ APP_NAME }}
 After=network.target
 
 [Service]
@@ -12,8 +11,8 @@ WorkingDirectory=/root/valhalla_setup/valhalla
 KillMode=control-group
 
 # Logging
-StandardOutput=file:/var/log/valhalla/valhallaMA.log
-StandardError=file:/var/log/valhalla/valhallaMA_error.log
+StandardOutput=file:/var/log/{{ APP_NAME }}/{{ APP_NAME }}.log
+StandardError=file:/var/log/{{ APP_NAME }}/{{ APP_NAME }}_error.log
 
 
 [Install]
