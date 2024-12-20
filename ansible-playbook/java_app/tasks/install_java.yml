@@ -1,0 +1,17 @@
+- name: Install Java-17 And Maven packages on Debian/Ubuntu
+  ansible.builtin.apt:
+    name:
+      - openjdk-17-jdk-headless
+      - maven
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+
+- name: Install Java-17 And Maven packages on Red Hat/CentOS
+  ansible.builtin.yum:
+    name:
+      - java-17-openjdk-devel
+      - maven
+    state: present
+  when: ansible_os_family == "RedHat"
