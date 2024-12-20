@@ -2,4 +2,4 @@
 # vars file for java_app
 home_dir: "/home/.akatsuki/software/{{ APP_NAME }}"
 git_repo: "{{ GIT_REPO }}"
-working_dir: "{{ DIR_TO_PKG | default('') | length > 0 | ternary(home_dir ~ '/' ~ DIR_TO_PKG, home_dir) }}"
+working_dir: "{{ (DIR_TO_PKG | default('') | string | length > 0) | ternary(home_dir ~ '/' ~ DIR_TO_PKG, home_dir) }}"
