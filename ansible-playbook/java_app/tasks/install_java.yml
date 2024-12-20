@@ -2,10 +2,11 @@
   ansible.builtin.apt:
     name:
       - openjdk-17-jdk-headless
-      - maven
     state: present
     update_cache: yes
   when: ansible_os_family == "Debian"
+
+  ansible.builtin.include_tasks: _install_maven_.yml
 
 
 - name: Install Java-17 And Maven packages on Red Hat/CentOS
