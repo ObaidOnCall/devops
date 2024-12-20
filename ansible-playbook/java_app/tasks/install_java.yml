@@ -6,7 +6,9 @@
     update_cache: yes
   when: ansible_os_family == "Debian"
 
+- name: Include Maven installation tasks
   ansible.builtin.include_tasks: _install_maven_.yml
+  when: ansible_os_family == "Debian"
 
 
 - name: Install Java-17 And Maven packages on Red Hat/CentOS
