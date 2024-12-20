@@ -4,3 +4,4 @@
 - name: Checkout A Java (Mvn) App Using Git Then Package It.
   block:
     - ansible.builtin.include_tasks: git_checkout_app.yml
+    - ansible.builtin.include_tasks: install_java.yml
