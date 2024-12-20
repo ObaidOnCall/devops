@@ -1,4 +1,4 @@
 - name : Intall Java App (Must Be Mvn) And Run It Behind A Nginx Proxy
   hosts: webservers
   roles:
-    - java_app
+    - init_nginx_proxy
