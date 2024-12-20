@@ -1,3 +1,12 @@
+- name: Ensure Nginx directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+    group: sudo
+  with_items:
+    - "{{ working_dir }}"
+
 - name : Intall Java App (Must Be Mvn) And Run It Behind A Nginx Proxy
   hosts: ungrouped
   roles:
