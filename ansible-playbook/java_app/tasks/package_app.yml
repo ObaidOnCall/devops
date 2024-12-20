@@ -1,0 +1,4 @@
+- name: Clean and package Java application with Maven
+  ansible.builtin.command:
+    cmd: mvn clean package
+    chdir: "{{ working_dir }}"

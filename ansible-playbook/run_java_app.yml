@@ -1,4 +1,4 @@
-- name: Install Redis and Create Proxy
-  hosts: webservers
+- name : Intall Java App (Must Be Mvn) And Run It Behind A Nginx Proxy
+  hosts: ungrouped
   roles:
     - java_app
