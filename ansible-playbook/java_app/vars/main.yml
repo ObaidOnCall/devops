@@ -1,0 +1,4 @@
+---
+# vars file for java_app
+working_dir: "{{ lookup('env', 'HOME') }}/.akatsuki"
+git_repo: "{{ GIT_REPO }}"

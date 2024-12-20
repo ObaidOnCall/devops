@@ -1,0 +1,4 @@
+- name: Git checkout
+  ansible.builtin.git:
+    repo: "{{ git_repo }}"
+    dest: "{{ working_dir }}"
