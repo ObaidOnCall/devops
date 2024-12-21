@@ -4,6 +4,4 @@
     files:
       - docker-compose.yml
     state: present
-
-    environment:
-      DOCKER_HOST: "unix:///var/run/docker.sock"
+    docker_host: "unix:///var/run/docker.sock"
