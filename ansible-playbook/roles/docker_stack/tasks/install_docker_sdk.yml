@@ -1,3 +1,20 @@
+- name: Install Certbot packages on Debian/Ubuntu
+  ansible.builtin.apt:
+    name:
+      - pip
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+
+- name: Install Certbot packages on Red Hat/CentOS
+  ansible.builtin.yum:
+    name:
+      - pip
+    state: present
+  when: ansible_os_family == "RedHat"
+
+
 - name: Install Python Docker SDK on target
   ansible.builtin.pip:
     name: docker
