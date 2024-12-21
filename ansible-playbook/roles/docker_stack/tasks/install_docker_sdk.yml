@@ -19,5 +19,5 @@
   ansible.builtin.pip:
     name: 
       - docker
-      - docker compose
+      - docker-compose
     state: absent
