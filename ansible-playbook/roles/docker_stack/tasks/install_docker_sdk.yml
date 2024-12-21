@@ -15,9 +15,8 @@
   when: ansible_os_family == "RedHat"
 
 
-- name: Install Python Docker SDK on target
+- name: Install Docker SDK for Python
   ansible.builtin.pip:
     name: 
-      - docker
-      - docker-compose
-    state: absent
+      - "docker==6.1.3"
+      - "docker-compose"
