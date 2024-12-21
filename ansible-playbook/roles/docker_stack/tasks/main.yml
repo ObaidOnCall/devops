@@ -3,3 +3,4 @@
 - name: Checkout A Docker App Where The Compose File That We Want To Build.
   block:
     - ansible.builtin.include_tasks: git_checkout_docker_pj.yml
+    - ansible.builtin.include_tasks: build_stack.yml
