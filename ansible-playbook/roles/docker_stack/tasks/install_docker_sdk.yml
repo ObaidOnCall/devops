@@ -1,0 +1,4 @@
+- name: Install Python Docker SDK on target
+  ansible.builtin.pip:
+    name: docker
+    state: present
