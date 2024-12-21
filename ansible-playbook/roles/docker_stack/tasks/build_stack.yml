@@ -1,6 +1,6 @@
-- name: Deploy a Docker Compose stack with an override file
+- name: Deploy a Docker Compose Stack
   community.docker.docker_compose_v2:
     project_src: "{{ working_dir }}"
     files:
       - docker-compose.yml
-    state: absent
+    state: present
