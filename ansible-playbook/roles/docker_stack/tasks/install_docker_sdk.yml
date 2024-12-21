@@ -1,4 +1,4 @@
-- name: Install Certbot packages on Debian/Ubuntu
+- name: Install Pip Package Manager on Debian/Ubuntu
   ansible.builtin.apt:
     name:
       - pip
@@ -7,7 +7,7 @@
   when: ansible_os_family == "Debian"
 
 
-- name: Install Certbot packages on Red Hat/CentOS
+- name: Install Pip Package Manager on Red Hat/CentOS
   ansible.builtin.yum:
     name:
       - pip
@@ -17,5 +17,7 @@
 
 - name: Install Python Docker SDK on target
   ansible.builtin.pip:
-    name: docker
+    name: 
+      - docker
+      - docker-compose
     state: present
