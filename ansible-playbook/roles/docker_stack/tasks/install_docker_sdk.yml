@@ -20,3 +20,8 @@
     name: 
       - "docker==6.1.3"
       - "docker-compose"
+
+
+- name: Set DOCKER_HOST environment variable
+  ansible.builtin.environment:
+    DOCKER_HOST: "unix:///var/run/docker.sock"
