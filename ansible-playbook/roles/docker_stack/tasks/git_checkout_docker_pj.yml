@@ -1,4 +1,4 @@
-- name: Ensure Nginx directories exist
+- name: Ensure Working directories are Exists
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory

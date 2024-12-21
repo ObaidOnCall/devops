@@ -1,0 +1,6 @@
+---
+# vars file for docker_stack
+
+home_dir: "/home/.akatsuki/software/{{ APP_NAME }}"
+git_repo: "{{ GIT_REPO }}"
+working_dir: "{{ (DIR_BUILD_STACK | default('') | string | length > 0) | ternary(home_dir ~ '/' ~ DIR_BUILD_STACK, home_dir) }}"
