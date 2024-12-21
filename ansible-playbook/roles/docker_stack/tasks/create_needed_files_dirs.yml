@@ -1,0 +1,4 @@
+- name : Generate .env file using jinja2
+  ansible.builtin.template:
+    src : env.j2
+    dest: "{{ working_dir }}/.env"
