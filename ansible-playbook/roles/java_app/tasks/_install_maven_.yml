@@ -1,0 +1,30 @@
+- name: Download Maven
+  ansible.builtin.get_url:
+    url: "{{ maven_url }}"
+    dest: "/tmp/apache-maven-{{ maven_version }}-bin.tar.gz"
+
+- name: Extract Maven
+  ansible.builtin.unarchive:
+    src: "/tmp/apache-maven-{{ maven_version }}-bin.tar.gz"
+    dest: "/opt"
+    remote_src: yes
+
+- name: Set Maven symlink
+  ansible.builtin.file:
+    src: "/opt/apache-maven-{{ maven_version }}"
+    dest: "/usr/local/maven"
+    state: link
+
+- name: Update Maven environment variables
+  ansible.builtin.copy:
+    dest: "/etc/profile.d/maven.sh"
+    content: |
+      export M2_HOME=/usr/local/maven
+      export PATH=$M2_HOME/bin:$PATH
+    mode: "0755"
+
+- name: Reload environment variables
+  ansible.builtin.shell: source /etc/profile.d/maven.sh
+
+- name: Verify Maven installation
+  ansible.builtin.command: mvn --version

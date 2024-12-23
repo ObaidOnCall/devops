@@ -1,0 +1,23 @@
+- name: Install Pip Package Manager on Debian/Ubuntu
+  ansible.builtin.apt:
+    name:
+      - pip
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+
+- name: Install Pip Package Manager on Red Hat/CentOS
+  ansible.builtin.yum:
+    name:
+      - pip
+    state: present
+  when: ansible_os_family == "RedHat"
+
+
+- name: Install Docker SDK for Python
+  ansible.builtin.pip:
+    name: 
+      - "docker==6.1.3"
+      - "docker-compose"
+      - "requests==2.29.0"

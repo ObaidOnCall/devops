@@ -2,9 +2,12 @@
   ansible.builtin.apt:
     name:
       - openjdk-17-jdk-headless
-      - maven
     state: present
     update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Include Maven installation tasks
+  ansible.builtin.include_tasks: _install_maven_.yml
   when: ansible_os_family == "Debian"
 
 

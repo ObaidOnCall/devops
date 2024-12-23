@@ -1,0 +1,4 @@
+- name: Update Car Rental API Application
+  hosts: webservers
+  roles:
+    - docker_stack

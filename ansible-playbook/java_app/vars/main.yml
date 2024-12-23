@@ -1,4 +1,0 @@
----
-# vars file for java_app
-working_dir: "/home/.akatsuki/java/{{ APP_NAME }}"
-git_repo: "{{ GIT_REPO }}"

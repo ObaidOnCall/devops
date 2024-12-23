@@ -1,13 +1,13 @@
-- name: Ensure Nginx directories exist
+- name: Ensure Working directories are Exists
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     mode: '0755'
     group: sudo
   with_items:
-    - "{{ working_dir }}"
+    - "{{ home_dir }}"
 
 - name: Git checkout
   ansible.builtin.git:
     repo: "{{ git_repo }}"
-    dest: "{{ working_dir }}"
+    dest: "{{ home_dir }}"
